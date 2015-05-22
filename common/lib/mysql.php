@@ -7,9 +7,9 @@ Copyright (c): 2012-2015 Jacky Yu, All rights reserved
 Version: 1.0.0
 
 * This library is free software; you can redistribute it and/or modify it.
-* You may contact the author of Picker by e-mail at: jacky325@qq.com
+* You may contact the author of Codebase by e-mail at: jacky325@qq.com
 
-The latest version of Picker can be obtained from:
+The latest version of Codebase can be obtained from:
 https://github.com/flyfishsoft/codebase
 
 *************************************************/
