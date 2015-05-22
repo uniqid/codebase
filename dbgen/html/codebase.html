@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> Codebase Database Dictionary</title>
+<meta name="author" content="Jacky Yu" />
+<meta charset="utf-8" />
+<style>
+    body {font-family:verdana,tahoma; font-size:14px; margin:0;padding:0}
+    table{border-collapse:collapse; display:none; padding:0px; margin:0px;border-right: 1px dotted #000000; border-bottom: 1px dotted #000000;}
+    .info tr td,.info tr th{border-top: 1px dotted #000000; border-left: 1px dotted #000000; padding:5px 10px}
+    .info tr th{font-weight:bold; height:16px;}
+    a{text-decoration:none; color:#0000ff;}
+    a:hover{text-decoration:underline;}
+    .item {white-space: nowrap;text-align: center; width:10px;}
+    ul{margin:0px;padding:0px;}
+    li{list-style:none;line-height:20px; padding:5px 0px 5px 15px; margin:0; border-bottom:1px dotted #ccc;}
+
+    #content{padding-left:248px;}
+    #leftPart{margin-left:-248px;width:248px;float:left;overflow-y:scroll;}
+    #rightPart{width:100%; float:left; overflow-x:scroll;}
+</style>
+</head>
+<body>
+<div id="content">
+    <div id="leftPart">
+        <ul>
+        <li>1. <a onclick="show('div_codebase_dbgen_tabs');" href="javascript:void(0);" title="tables">codebase_dbgen_tabs</a></li>
+<li>2. <a onclick="show('div_codebase_dbgen_cols');" href="javascript:void(0);" title="fields">codebase_dbgen_cols</a></li>
+			<li><b>Updated</b>: <font color='red'>2015-05-22 15:31</font></li>
+			<li><b>Support</b>: <a href="mailto:jacky325@qq.com">Jacky Yu</a></li>
+        </ul>
+    </div>
+    <div id="rightPart">
+            <table width="100%" class="info" id="div_codebase_dbgen_tabs">
+          <tr><th class="item">ID</th><th width="150">列名</th><th width="320">类型</th><th>备注</th> </tr><tr><td class="item">1</td><td><a href="#">`id`</a></td><td><a href="#">int(10) NOT NULL AUTO_INCREMENT</a></td><td>id</td></tr>
+<tr><td class="item">2</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>table name</td></tr>
+<tr><td class="item">3</td><td><a href="#">`comment`</a></td><td><a href="#">varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>comment</td></tr>
+<tr><td class="item">4</td><td><a href="#">`extra`</a></td><td><a href="#">varchar(500) COLLATE utf8_unicode_ci NOT NULL</a></td><td>extra information</td></tr>
+<tr><td class="item">5</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>order number</td></tr>
+<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">( 
+
+
+
+
+
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_tabs (5)</b> [ <span style="color:#ff0000;">tables</span> ]</td></tr>        </table>
+                <table width="100%" class="info" id="div_codebase_dbgen_cols">
+          <tr><th class="item">ID</th><th width="150">列名</th><th width="320">类型</th><th>备注</th> </tr><tr><td class="item">1</td><td><a href="#">`id`</a></td><td><a href="#">int(10) NOT NULL AUTO_INCREMENT</a></td><td>id</td></tr>
+<tr><td class="item">2</td><td><a href="#">`tab`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci NOT NULL</a></td><td>table name</td></tr>
+<tr><td class="item">3</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>field name</td></tr>
+<tr><td class="item">4</td><td><a href="#">`type`</a></td><td><a href="#">varchar(400) COLLATE utf8_unicode_ci NOT NULL</a></td><td>field type</td></tr>
+<tr><td class="item">5</td><td><a href="#">`comment`</a></td><td><a href="#">varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>comment</td></tr>
+<tr><td class="item">6</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>order number</td></tr>
+<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">( 
+
+
+
+
+
+
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_cols (6)</b> [ <span style="color:#ff0000;">fields</span> ]</td></tr>        </table>
+            </div>
+</div>
+<div style="clear:both;"></div>
+<script language="javaScript">
+elems = document.getElementsByTagName("table");
+function show(id){
+    var agent = navigator.userAgent.toLowerCase();
+    var display = !/opera/.test(agent) && /msie/.test(agent)? "block": "table";
+    obj = document.getElementById(id);
+    obj.style.display = display;
+    for(var i=0; i<elems.length; i++){
+        if(elems[i].id != id){
+            elems[i].style.display = "none";
+        }
+    }
+};
+function resize(){
+    document.getElementById("leftPart").style.height  = document.documentElement.clientHeight + "px";
+    document.getElementById("rightPart").style.height = document.documentElement.clientHeight + "px";
+}
+window.onresize = resize;
+(function(){
+    show("div_codebase_dbgen_tabs");
+    resize();
+})();
+</script>
+ </body>
+</html>

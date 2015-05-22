@@ -1,0 +1,14 @@
+div.nav-list{width:300px;margin:5px;font-family: Verdana;float:left;}
+.nav-list a{display:block;color:#BBE1E7;padding:10px 15px;background-color:#3DA2B6;border-bottom:dotted 1px #A8D3DA;font-size:12px;text-decoration:none;}
+.nav-list a:hover{color:#fff;background-color:#58AFC0;}
+.nav-list h1{margin:0;font-weight:normal;color:#fff;padding:15px;font-size:14px;background-color:#238298}
+.nav-foot h2{color:white;margin:0; font-size:14px;padding:20px 10px;}
+
+/*圆角*/
+div.RoundedCorner{background: #3DA2B6}
+b.rtop, b.rbottom{display:block;background: #FFF}
+b.rtop b, b.rbottom b{display:block;height: 1px;overflow: hidden; background: #3DA2B6}
+b.r1{margin: 0 5px}
+b.r2{margin: 0 3px}
+b.r3{margin: 0 2px}
+b.rtop b.r4, b.rbottom b.r4{margin: 0 1px;height: 2px}
