@@ -61,6 +61,42 @@ Class WordHTMLParser{
         }
     }
 
+
+    /**
+      *replace prev & next link
+    */
+    public function replace_link(){
+        $dfile = $this->_get_sort_files($this->_dhtml, true); //print_r($dfile);exit;
+		$links = array();
+		foreach($dfile as $key => $file){
+			if(isset($file['name'])){
+                $links[] = $file['name'];
+            } else {
+                foreach($file['children'] as $child){
+					$links[] = $child;
+                }
+            }
+		}
+
+		foreach($links as $key => $link){
+			$prev = isset($links[$key - 1])? $links[$key - 1]: '';
+			$next = isset($links[$key + 1])? $links[$key + 1]: '';
+			$content = file_get_contents($this->_dhtml.$link);
+			if($prev == ''){
+				$content = preg_replace("/<a[^>]*href='[^']*prev[^']*'>[^<]*<\/a>/is", '', $content);
+			} else {
+				$content = str_replace('{__prev__}', $prev, $content);
+			}
+
+			if($next == ''){
+				$content = preg_replace("/<a[^>]*href='[^']*next[^']*'>[^<]*<\/a>/is", '', $content);
+			} else {
+				$content = str_replace('{__next__}', $next, $content);
+			}
+			file_put_contents($this->_dhtml.$link, $content);
+		}
+    }
+
     /**
       *creat hhc file
     */
@@ -302,6 +338,7 @@ header("Content-type: text/html; charset=gbk");
 $parser = new WordHTMLParser(dirname(__FILE__)."/shtml/", dirname(__FILE__)."/dhtml/", 'gbk');
 echo "<pre>";
 $parser->create_htmls();
+$parser->replace_link();
 $parser->create_hhc();
 $parser->create_hhk();
 echo "</pre>";
