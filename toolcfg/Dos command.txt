@@ -1,0 +1,87 @@
+======== Dos command ========
+assoc          显示或修改文件扩展名关联。
+attrib         显示或更改文件属性。
+break          设置或清除扩展式 ctrl+c 检查。
+bcdedit        设置启动数据库中的属性以控制启动加载。
+cacls          显示或修改文件的访问控制列表(acl)。
+call           从另一个批处理程序调用这一个。
+cd             显示当前目录的名称或将其更改。
+chcp           显示或设置活动代码页数。
+chdir          显示当前目录的名称或将其更改。
+chkdsk         检查磁盘并显示状态报告。
+chkntfs        显示或修改启动时间磁盘检查。
+cls            清除屏幕。
+cmd            打开另一个 windows 命令解释程序窗口。
+color          设置默认控制台前景和背景颜色。
+comp           比较两个或两套文件的内容。
+compact        显示或更改 ntfs 分区上文件的压缩。
+convert        将 fat 卷转换成 ntfs。您不能转换当前驱动器。
+copy           将至少一个文件复制到另一个位置。
+date           显示或设置日期。
+del            删除至少一个文件。
+dir            显示一个目录中的文件和子目录。
+diskcomp       比较两个软盘的内容。
+diskcopy       将一个软盘的内容复制到另一个软盘。
+diskpart       显示或配置磁盘分区属性。
+doskey         编辑命令行、调用 windows 命令并创建宏。
+driverquery    显示当前设备驱动程序状态和属性。
+echo           显示消息，或将命令回显打开或关上。
+endlocal       结束批文件中环境更改的本地化。
+erase          删除一个或多个文件。
+exit           退出 cmd.exe 程序(命令解释程序)。
+fc             比较两个文件或两个文件集并显示它们之间的不同。
+find           在一个或多个文件中搜索一个文本字符串。
+findstr        在多个文件中搜索字符串。
+for            为一套文件中的每个文件运行一个指定的命令。
+format         格式化磁盘，以便跟 windows 使用。
+fsutil         显示或配置文件系统的属性。
+ftype          显示或修改用在文件扩展名关联的文件类型。
+goto           将 windows 命令解释程序指向批处理程序中某个带标签的行。
+gpresult       显示机器或用户的组策略信息。
+graftabl       启用 windows 在图形模式显示扩展字符集。
+help           提供 windows 命令的帮助信息。
+icacls         显示、修改、备份或还原文件和目录的 acl。
+if             在批处理程序中执行有条件的处理过程。
+label          创建、更改或删除磁盘的卷标。
+md             创建一个目录。
+mkdir          创建一个目录。
+mklink         创建符号链接和硬链接
+mode           配置系统设备。
+more           逐屏显示输出。
+move           将一个或多个文件从一个目录移动到另一个目录。
+openfiles      显示远程用户为了文件共享而打开的文件。
+path           为可执行文件显示或设置搜索路径。
+pause          停止批处理文件的处理并显示信息。
+popd           还原由 pushd 保存的当前目录上一次的值。
+print          打印一个文本文件。
+prompt         改变 windows 命令提示。
+pushd          保存当前目录，然后对其进行更改。
+rd             删除目录。
+recover        从损坏的磁盘中恢复可读取的信息。
+rem            记录批处理文件或 config.sys 中的注释。
+ren            重新命名文件。
+rename         重新命名文件。
+replace        替换文件。
+rmdir          删除目录。
+robocopy       复制文件和目录树的高级实用程序
+set            显示、设置或删除 windows 环境变量。
+setlocal       开始用批文件改变环境的本地化。
+sc             显示或配置服务(后台处理)。
+schtasks       安排命令和程序在一部计算机上按计划运行。
+shift          调整批处理文件中可替换参数的位置。
+shutdown       让机器在本地或远程正确关闭。
+sort           将输入排序。
+start          打开单独视窗运行指定程序或命令。
+subst          将驱动器号与路径关联。
+systeminfo     显示机器的具体的属性和配置。
+tasklist       显示包括服务的所有当前运行的任务。
+taskkill       终止正在运行的进程或应用程序。
+time           显示或设置系统时间。
+title          设置 cmd.exe 会话的窗口标题。
+tree           以图形显示启动器或路径的目录结构。
+type           显示文本文件的内容。
+ver            显示 windows 的版本。
+verify         告诉 windows 验证文件是否正确写入磁盘。
+vol            显示磁盘卷标和序列号。
+xcopy          复制文件和目录树。
+wmic           在交互命令外壳里显示 wmi 信息。

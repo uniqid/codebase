@@ -40,7 +40,7 @@ start () {
                 chown $USER /var/run/phpservice
         fi
 
-        /usr/bin/php -f /path/to/phpservice.php $OPTIONS 2>&1 >>/var/log/welljob.log &
+        /usr/bin/php -f /path/to/phpservice.php $OPTIONS 2>&1 >>/var/log/${prog}.log &
         ps -ef|grep "phpservice\.php"|grep -v grep|awk '{print $2}' > ${pidfile}
         RETVAL=$?
         echo -e '                                         [  \033[0;32;1mOK\033[0m  ]'
