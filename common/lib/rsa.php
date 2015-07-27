@@ -29,6 +29,10 @@ class Rsa {
         }
     }
 
+    /**
+     * generate pb.key
+     * openssl rsa -in pk.pem -pubout -out pb.key
+     */
     public function encode($str) {
         $publicstr = file_get_contents($this->_rsa_path . 'pb.key');
         $publickey = openssl_pkey_get_public($publicstr);
@@ -39,6 +43,11 @@ class Rsa {
         return false;
     }
 
+    /**
+     * generate pk.pem
+     * 1. openssl genrsa -des3 -out pk.pem 2048
+     * 2. openssl rsa -in pk.pem -out pk.pem
+     */
     public function decode($str) {
         $str = base64_decode($str);
         $privstr = file_get_contents($this->_rsa_path . 'pk.pem');
