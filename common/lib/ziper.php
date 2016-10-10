@@ -27,7 +27,7 @@ class Zip
     */
     public function addFoldersToZip($folders, $zipFile, $recursive = true, $ignored = null) {
         $flags = is_file($zipFile)? ZIPARCHIVE::CHECKCONS: ZIPARCHIVE::CREATE;
-        if (TRUE !== $this->zipObj->open($zipFile, $flags)) {
+        if (true !== $this->zipObj->open($zipFile, $flags)) {
             return false;
         }
         else{
@@ -50,9 +50,37 @@ class Zip
         return true;
     }
 
+    private function _addFolderToZip($folder, $recursive = true, $parent = "") {
+        $zipPath  = $parent . $folder;
+        $fullPath = $this->zipBasePath . $zipPath;
+        if(true !== $this->zipObj->addEmptyDir($zipPath)){
+            return false;
+        }
+
+        if($recursive){
+            $dir = new DirectoryIterator($fullPath);
+            foreach($dir as $file) {
+                if($file->isDot()){
+                    continue;
+                }
+
+                $filename = $file->getFilename();
+                if(!in_array($filename, $this->ignored)){
+                    if($file->isDir()) {
+                        $this->_addFolderToZip($filename, true, $zipPath . '/');
+                    } 
+                    else {
+                        return $this->zipObj->addFile($fullPath .'/'. $filename, $zipPath .'/'. $filename);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public function addFilesToZip($files, $zipFile) {
         $flags = is_file($zipFile)? ZIPARCHIVE::CHECKCONS: ZIPARCHIVE::CREATE;
-        if (TRUE !== $this->zipObj->open($zipFile, $flags)) {
+        if (true !== $this->zipObj->open($zipFile, $flags)) {
             return false;
         }
         foreach($files as $file => $newFile){
@@ -82,16 +110,11 @@ class Zip
                 if(substr($entryName, -1) === '/'){
                     continue;
                 }
-                $names  = explode('/', $entryName);
-                $floder = $this->unZipBasePath;
-                for($i = 0; $i < count($names) - 1; $i++){
-                    $floder = $floder ."/". $names[$i];
-                    if(!is_dir($floder) && !mkdir($floder, 0777, true)){
-                        return false;
-                    }
+                $fullpath = $this->unZipBasePath ."/". $entryName;
+                if(!is_dir($fullpath) && !mkdir($fullpath, 0777, true)){
+                    return false;
                 }
-
-                $fp = fopen($this->unZipBasePath . "/" .$entryName, "w");
+                $fp = fopen($fullpath, "w");
                 if (zip_entry_open($zip, $zip_entry, "r")) {
                     $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
                     fwrite($fp, "$buf");
@@ -105,34 +128,6 @@ class Zip
         else{
             return false;
         }
-    }
-
-    private function _addFolderToZip($folder, $recursive = true, $parent = "") {
-        $fullPath = $this->zipBasePath . $parent . $folder;
-        $zipPath  = $parent . $folder;
-        if(TRUE !== $this->zipObj->addEmptyDir($zipPath)){
-            return false;
-        }
-
-        if($recursive){
-            $dir = new DirectoryIterator($fullPath);
-            foreach($dir as $file) {
-                if($file->isDot()){
-                    continue;
-                }
-
-                $filename = $file->getFilename();
-                if(!in_array($filename, $this->ignored)){
-                    if($file->isDir()) {
-                        $this->_addFolderToZip($filename, true, $zipPath . '/');
-                    } 
-                    else {
-                        return $this->zipObj->addFile($fullPath . '/' . $filename, $zipPath . '/' . $filename);
-                    }
-                }
-            }
-        }
-        return true;
     }
 
     private function _mkTmpDir()
@@ -152,7 +147,7 @@ class Zip
 			return false;
 		}
 		$handle = opendir($dirName);
-		while(FALSE !== ($file = readdir($handle))){
+		while(false !== ($file = readdir($handle))){
 			if($file != '.' && $file != '..'){
 				$dir = $dirName ."/". $file;
 				is_dir($dir)? $this->_delDir($dir): unlink($dir);

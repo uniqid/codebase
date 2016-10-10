@@ -1,0 +1,21 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=pdf.chm
+Contents file=pdf.hhc
+Default Window=main
+Default topic=1.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=pdf.hhk
+Language=0x804 中文(简体，中国)
+Title=pdf
+
+[WINDOWS]
+main=,"pdf.hhc","pdf.hhk","1.htm",,,,,,0x3520,,0x3006,,,,,,,,0
+
+
+[FILES]
+{__files__}
+
+[INFOTYPES]

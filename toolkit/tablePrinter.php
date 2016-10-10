@@ -1,4 +1,18 @@
 <?php
+/*************************************************
+
+Codebase - The PHP toolkit
+Author: Jacky Yu <jacky325@qq.com>
+Copyright (c): 2012-2015 Jacky Yu, All rights reserved
+Version: 1.0.0
+
+* This library is free software; you can redistribute it and/or modify it.
+* You may contact the author of Codebase by e-mail at: jacky325@qq.com
+
+The latest version of Codebase can be obtained from:
+https://github.com/uniqid/codebase
+
+*************************************************/
 class TablePrinter{
     public $skin = array(
         'lt' => '┌', 'mt' => '┬', 'rt' => '┐',
@@ -36,7 +50,6 @@ class TablePrinter{
             }
             echo $y, "\n";
         }
-
         $this->_print_bot($lb, $mb, $rb, $x, $cols);
     }
 
@@ -65,10 +78,11 @@ class TablePrinter{
     }
 }
 
-$printer = new TablePrinter();
+header("content-type:text/html;charset=utf-8");
 echo "<pre>";
+$printer = new TablePrinter();
 $printer->pr(array(
     array('id', 'name', 'description'),
-    array('1', 'Jacky', 'PHPer'),
+    array('1', 'Jacky', 'PHPer')
 ));
 echo "</pre>";

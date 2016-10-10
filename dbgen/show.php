@@ -10,7 +10,7 @@ Version: 1.0.0
 * You may contact the author of Codebase by e-mail at: jacky325@qq.com
 
 The latest version of Codebase can be obtained from:
-https://github.com/flyfishsoft/codebase
+https://github.com/uniqid/codebase
 
 *************************************************/
 require_once '../common/cfg/bootstrap.php';
