@@ -1,10 +1,8 @@
 body{font-size: 12pt; line-height:150%;}
-pre {
-    white-space: pre-wrap; /* css-3 */
-    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-    word-wrap: break-word; /* Internet Explorer 5.5+ */
-}
-.hidden{display:none;border:1px solid #ccc;width:95%;margin:0 auto;}
+pre {white-space: pre-wrap;word-wrap: break-word;}
+.hidden{display:none; max-width:98%; margin:0 auto;}
 .clear{clear:both;}
 #main{width:100%;text-align:center;}
-#main>img{max-width:1024px;}
+#main>img{max-width:98%;}
+#main>div.txt{text-align:left;}
+#main>div.txt>p{text-indent:2em;}

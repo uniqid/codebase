@@ -29,10 +29,10 @@ $(function(){
     $('body').on('dblclick', function(){
         if($('#main').children('img').is(':visible')){
             $('#main').children('img').hide();
-            $('#main').children('pre.hidden').show().css({'min-height':$(window).height() - 50});
+            $('#main').children('div.txt').show().css({'min-height':$(window).height() - 50});
         } else {
             $('#main').children('img').show();
-            $('#main').children('pre.hidden').hide();
+            $('#main').children('div.txt').hide();
         }
     });
 });
