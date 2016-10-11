@@ -1,4 +1,19 @@
 <?php
+/*************************************************
+
+Codebase - The PHP toolkit
+Author: Jacky Yu <jacky325@qq.com>
+Copyright (c): 2016 Jacky Yu, All rights reserved
+Version: 1.0.0
+
+* This library is free software; you can redistribute it and/or modify it.
+* You may contact the author of Codebase by e-mail at: jacky325@qq.com
+
+The latest version of Codebase can be obtained from:
+https://github.com/uniqid/codebase
+
+*************************************************/
+
 class Converter{
     public $cfg = array();
     public function __construct($dir_tpl, $dir_target, $encoding = 'gbk'){
@@ -56,7 +71,7 @@ EOT;
             if($this->cfg['encoding'] != 'gbk'){
                 $txt = mb_convert_encoding($txt, 'gbk', $this->cfg['encoding']);
             }
-            $txt = $this->_htm2txt($this->_txt2htm($txt));
+            $txt = $this->_htm2txt($this->_txt2htm($txt, false));
             $txt = mb_convert_encoding($txt, 'utf-8', 'gbk');
             fwrite($fp, $txt."\n");
         }
@@ -101,8 +116,11 @@ EOT;
         return $html;
     }
 
-    private function _txt2htm($txt){
+    private function _txt2htm($txt, $escape = true){
         $htm = str_replace(array("\f", "\r\n"), array('', "\n"), trim($txt));
+        if($escape){
+            $htm = str_replace(array('<', '>'), array('&lt;', "&gt;"), $htm);
+        }
         $htm = preg_replace('/(\.|\?|\!|¡£|£¿|£¡)\n+/is', "$1</p><p>", $htm);
         $htm = str_replace("</p><p>¡±", "¡±</p><p>", $htm);
         $htm = str_replace("\n\n", "</p><p>", $htm);
