@@ -6,4 +6,5 @@ $basepath = str_replace('\\', '/', dirname(realpath(__FILE__)));
 
 require_once($basepath.'/Converter.php');
 $converter = new Converter($basepath.'/tpl', $basepath.'/'.$params['d'], 'utf-8');
-$converter->convert();
+$converter->conv2chm();
+$converter->conv2txt();

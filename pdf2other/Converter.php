@@ -2,6 +2,8 @@
 class Converter{
     public $cfg = array();
     public function __construct($dir_tpl, $dir_target, $encoding = 'gbk'){
+        is_dir($dir_tpl) || exit($dir_tpl . ' done not exist');
+        is_dir($dir_target) || exit($dir_target . ' done not exist');
         $this->cfg = array(
             'tpl_htm' => $dir_tpl.'/tpl.htm',
             'tpl_hhp' => $dir_tpl.'/tpl.hhp',
@@ -35,13 +37,31 @@ EOT;
         is_dir($this->cfg['dir_htm'].'/png') || mkdir($this->cfg['dir_htm'].'/png');
     }
 
-    public function convert(){
+    public function conv2chm(){
         $this->_create_htm();
         $this->_create_css();
         $this->_create_js();
         $this->_create_hhp();
         $this->_create_hhc();
         $this->_create_hhk();
+    }
+
+    public function conv2txt(){
+        $files = $this->_get_sort_files($this->cfg['dir_txt']."/*.txt");
+        $count = count($files);
+        $fp = fopen($this->cfg['dir_htm']."/pdf.txt", 'w');
+        fwrite($fp, "\xEF\xBB\xBF");
+        foreach($files as $file){
+            $txt = file_get_contents($file);
+            if($this->cfg['encoding'] != 'gbk'){
+                $txt = mb_convert_encoding($txt, 'gbk', $this->cfg['encoding']);
+            }
+            $txt = $this->_htm2txt($this->_txt2htm($txt));
+            $txt = mb_convert_encoding($txt, 'utf-8', 'gbk');
+            fwrite($fp, $txt."\n");
+        }
+        fclose($fp);
+        echo $this->cfg['dir_htm']."/pdf.txt<br/>\n";
     }
 
     private function _create_htm(){
@@ -67,18 +87,11 @@ EOT;
     private function _set_txt($html, $basename, $is_last){
         $txt = file_get_contents($this->cfg['dir_txt'].'/'.$basename);
         if($this->cfg['encoding'] != 'gbk'){
-           $txt = iconv($this->cfg['encoding'], 'gbk//ignore', $txt);
+            //$txt = iconv($this->cfg['encoding'], 'gbk//ignore', $txt);
+            $txt = mb_convert_encoding($txt, 'gbk', $this->cfg['encoding']);
         }
-        $txt = str_replace("\f", '', "\r\n<p>".trim($txt)."</p>\r\n");
-        $txt = preg_replace('/([\.\!\?¡££¡£¿]{1})[\r\n]{1,}/is', "$1 </p>\r\n<p>", $txt);
-        $txt = preg_replace('/<\/p>[\r\n]{2,}<p>/is', "</p>\r\n<p>", $txt);
-        $txt = str_replace("</p>\r\n<p>¡±", "¡±</p>\r\n<p>", $txt);
-        $txt = str_replace("\n\n", "<br/>", $txt);
-        $txt = str_replace("<br/><br/>", "</p>\r\n<p>", $txt);
-        $txt = str_replace("<p></p>\r\n", "", $txt);
-        $txt = str_replace("<p><br/>", "<p>", $txt);
 
-        $html = str_replace('{__txt__}', '<div class="txt hidden">'.$txt.'</div>', $html);
+        $html = str_replace('{__txt__}', '<div class="hidden txt">'.$this->_txt2htm($txt).'</div>', $html);
         $html = str_replace('{__title__}', str_replace('{__name__}', substr($basename, 0, -4), $this->cfg['tpl_tit']), $html);
         if($is_last){
             $html = str_replace('{__extra__}', '<div class="hidden"><a id="_next" href="1.htm">next</a></div>', $html);
@@ -86,6 +99,26 @@ EOT;
             $html = str_replace('{__extra__}', '', $html);
         }
         return $html;
+    }
+
+    private function _txt2htm($txt){
+        $htm = str_replace(array("\f", "\r\n"), array('', "\n"), trim($txt));
+        $htm = preg_replace('/(\.|\?|\!|¡£|£¿|£¡)\n+/is', "$1</p><p>", $htm);
+        $htm = str_replace("</p><p>¡±", "¡±</p><p>", $htm);
+        $htm = str_replace("\n\n", "</p><p>", $htm);
+        $htm = str_replace("\n", "", $htm);
+        $htm = str_replace("<p></p>",  '', $htm);
+        $htm = str_replace("<p>?</p>", '', $htm);
+        $htm = str_replace("<p>?", '<p>', $htm);
+        $htm = str_replace("</p><p>", "</p>\n<p>", $htm);
+        $htm = "\n<p>".$htm."</p>\n";
+        return $htm;
+    }
+
+    private function _htm2txt($htm){
+        $txt = str_replace("</p>\n<p>", "\r\n\r\n    ", trim($htm));
+        $txt = "    " . substr($txt, 3, -4);
+        return $txt;
     }
 
     private function _create_css($file = 'pdf.css'){
