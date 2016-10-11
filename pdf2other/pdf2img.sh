@@ -28,7 +28,11 @@ fi
 for i in `seq $from ${to}`;
 do
     k=`expr $i - 1`
-    convert -density 225x225 "${file}[$k]" -quality 100 $dir/png/$i.png
+    convert -density 225 "${file}[$k]" -quality 100 $dir/png/${i}_1.png
+    convert -shave 250x120  $dir/png/${i}_1.png -quality 100 $dir/png/$i.png
+    rm $dir/png/${i}_1.png
     pdftotext -f $i -l $i ${file}  $dir/txt/$i.txt
     echo "converted p$i"
 done
+
+echo "### Done ###"
