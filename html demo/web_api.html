@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>WEB API</title>
+  <meta name="author" content="Jacky Yu" />
+  <meta charset="utf-8">
+  <style>
+    fieldset{border:1px solid #0000ff; margin:3px 0; padding:0 10px 10px; width:18%; display:block;}
+    legend{font-weight:bold; padding:8px; color:#0000FF;cursor:pointer;}
+    table{border-collapse:collapse; word-break:break-all; word-wrap:break-word; width:100%; display:none;}
+    td,th{border:1px solid #000; padding:3px 10px 3px 10px;}
+    th{width:120px;}
+  </style>
+ </head>
+ <body>
+     <fieldset>
+         <legend>api name</legend>
+         <table>
+             <tr><th>Url</th>
+                 <td>http://&lt;host&gt;/api/users</td>
+             </tr>
+             <tr><th>Method</th>
+                 <td>get</td>
+             </tr>
+             <tr><th>Parameter</th>
+                 <td><pre>
+page        type:int, current page number, default value:1, last page=-1    e.g.: 1
+pageSize    type:int, page size, default value:20                           e.g.: 10<pre></td>
+             </tr>
+             <tr><th>Return</th>
+                 <td>success:{"success":true,"data":[here is detail data],"count":[totals]}<br/>
+                  e.g.: {"success":true,
+                         "data":[{"id":"1","name":"user1"}, {"id":"2","name":"user2"}],
+                         "count":28}<br/><br/>
+
+              No data:{"success":true,"data":[here is empty],"count":[totals]} <br/>
+                    e.g.: {"success":true,"data":[],"count":1}<br/><br/>
+              fail:{"success":false,"code":400,"error":"\u767b\u5f55\u5931\u8d25\u3002"}</td>
+             </tr>
+         </table>
+     </fieldset>
+     <fieldset>
+         <legend>api name</legend>
+         <table>
+             <tr><th>Url</th>
+                 <td>http://&lt;host&gt;/api/users</td>
+             </tr>
+             <tr><th>Method</th>
+                 <td>get</td>
+             </tr>
+             <tr><th>Parameter</th>
+                 <td><pre>
+page        type:int, current page number, default value:1, last page=-1    e.g.: 1
+pageSize    type:int, page size, default value:20                           e.g.: 10<pre></td>
+             </tr>
+             <tr><th>Return</th>
+                 <td>success:{"success":true,"data":[here is detail data],"count":[totals]}<br/>
+                  e.g.: {"success":true,
+                         "data":[{"id":"1","name":"user1"}, {"id":"2","name":"user2"}],
+                         "count":28}<br/><br/>
+
+              No data:{"success":true,"data":[here is empty],"count":[totals]} <br/>
+                    e.g.: {"success":true,"data":[],"count":1}<br/><br/>
+              fail:{"success":false,"code":400,"error":"\u767b\u5f55\u5931\u8d25\u3002"}</td>
+             </tr>
+         </table>
+     </fieldset>
+
+     <script language="javaScript">
+         var show = function(event){
+             obj = this.nextElementSibling? this.nextElementSibling: event.srcElement.nextSibling;
+             var agent = navigator.userAgent.toLowerCase();
+             var display = !/opera/.test(agent) && /msie/.test(agent)? "block": "table";
+             if(obj.style.display==display){
+                 obj.style.display = "none";
+                 obj.parentNode.style.width = "18%";
+             }
+             else{
+                 obj.style.display = display;
+                 obj.parentNode.style.width = "98%";
+             }
+         };
+         function addClickEvent(){
+             var elems = document.getElementsByTagName("legend");
+             for(var i=0; i<elems.length; i++){
+                 elems[i].addEventListener? elems[i].addEventListener( "click", show, false ): elems[i].attachEvent("onclick", show);
+             }
+         }
+         addClickEvent();
+     </script>
+ </body>
+</html>
