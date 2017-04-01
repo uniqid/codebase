@@ -1,5 +1,18 @@
 <?php
-header("Content-type:text/html;charset=utf-8;");
+/*************************************************
+
+Codebase - The PHP toolkit
+Author: Jacky Yu <jacky325@qq.com>
+Copyright (c): 2017 Jacky Yu, All rights reserved
+Version: 1.0.0
+
+* This library is free software; you can redistribute it and/or modify it.
+* You may contact the author of Codebase by e-mail at: jacky325@qq.com
+
+The latest version of Codebase can be obtained from:
+https://github.com/uniqid/codebase
+
+*************************************************/
 Class Txt{
     protected $cfgs = array();
     public function __construct($cfgs = array()){
@@ -266,6 +279,8 @@ Class Txt{
         return true;
     }
 }
+
+header("Content-type:text/html;charset=utf-8;");
 
 $base = 'f:/data';
 $parser = new Txt(array(
