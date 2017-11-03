@@ -1,0 +1,16 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=chm.chm
+Contents file=chm.hhc
+Default topic=0.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=chm.hhk
+Language=0x804 中文(简体，中国)
+Title={title}
+
+[FILES]
+0.htm
+
+[INFOTYPES]

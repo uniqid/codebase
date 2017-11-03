@@ -209,7 +209,6 @@ class Mysql {
 			return false;
 		}
 		$sql = "INSERT INTO `{$table}` ({$field}) VALUES ({$value})";
-		echo $sql;
 		return $this->query($sql) && $this->affected_rows();
 	}
 

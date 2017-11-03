@@ -1,0 +1,20 @@
+简介
+    PHP从入门到精通
+
+第1篇 基础知识
+
+第1章 初识PHP
+
+    什么是PHP，PHP语言的优势
+
+第2篇 PHP环境搭建和开发工具
+
+第1章 在Windows下使用AppServ组合包
+
+    在Windows下使用AppServ组合包
+
+
+第2章 在Linux下的安装配置
+
+    在Linux下的安装配置
+

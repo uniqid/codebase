@@ -1,0 +1,1 @@
+document.write('<div class="page_nav" id="on_right"><img src="./i/7_3.jpg" /><img src="./i/7_2.jpg" /><img src="./i/7_4.jpg" /></div>');

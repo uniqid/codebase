@@ -3,8 +3,8 @@
 
 Codebase - The PHP toolkit
 Author: Jacky Yu <jacky325@qq.com>
-Copyright (c): 2012-2015 Jacky Yu, All rights reserved
-Version: 1.0.0
+Copyright (c): 2012-2017 Jacky Yu, All rights reserved
+Version: 1.0.1
 
 * This library is free software; you can redistribute it and/or modify it.
 * You may contact the author of Codebase by e-mail at: jacky325@qq.com
@@ -33,7 +33,9 @@ class TablePrinter{
                 $cols[$key] < mb_strlen($td) + 2  && $cols[$key] = mb_strlen($td) + 2;
             }
         }
+        echo "<pre>";
         $this->_print_table($trs, $cols);
+        echo "</pre>";
     }
 
     private function _print_table($trs, $cols){
@@ -43,8 +45,7 @@ class TablePrinter{
             $trkey > 0 && $this->_print_mid($lm, $mm, $rm, $x, $cols);
             echo $y;
             foreach($tds as $tdkey => $td){
-                echo $tdkey > 0? $y: '', ' ', $td;
-                //$spc_len = $cols[$tdkey]*2 - strlen(preg_replace('/[\x{4e00}-\x{9fa5}]{1}/u', '  ', $td)) -1;
+                echo $tdkey > 0? $y: '', ' ', str_replace(array('>', '<'), array('&gt;', '&lt;'), $td);
                 $spc_len = $cols[$tdkey] - strlen(preg_replace('/[\x{4e00}-\x{9fa5}]{1}/u', '  ', $td)) -1;
                 echo str_repeat(' ', $spc_len);
             }
@@ -77,12 +78,3 @@ class TablePrinter{
         echo $rb, "\n";
     }
 }
-
-header("content-type:text/html;charset=utf-8");
-echo "<pre>";
-$printer = new TablePrinter();
-$printer->pr(array(
-    array('id', 'name', 'description'),
-    array('1', 'Jacky', 'PHPer')
-));
-echo "</pre>";

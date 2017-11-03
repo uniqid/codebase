@@ -1,0 +1,1 @@
+var home_num=0, min_prev=0, max_next=4;

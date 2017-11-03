@@ -13,7 +13,7 @@ The latest version of Codebase can be obtained from:
 https://github.com/uniqid/codebase
 
 *************************************************/
-Class Txt{
+Class Txt2chm{
     protected $cfgs = array();
     public function __construct($cfgs = array()){
         if(!is_file($cfgs['txt_file']) || empty($cfgs['pattern']) || empty($cfgs['tpl_path']) || empty($cfgs['htm_path'])){
@@ -111,10 +111,10 @@ Class Txt{
     }
 
     public function create_pages(){
-        $tpl_str= $this->_get_page_tpl();
-        $titles = $this->get_titles();
-        $pages  = $this->get_pages();
-        $number = 0;
+        $tpl_str = $this->_get_page_tpl();
+        $titles  = $this->get_titles();
+        $pages   = $this->get_pages();
+        $number  = 0;
         foreach($titles as $key => $title){
             if($key == 0 || $this->_is_empty($pages[$key-1])){
                 continue;
@@ -254,6 +254,10 @@ Class Txt{
         return preg_replace('/<!--noscript-->.*?<!--noscript-->/is', '', $tpl_str);
     }
 
+    /*
+     * Omit $root parameter when call _copy_folder in out-side
+     * Don't copy file in root directory
+     */
     private function _copy_folder($form, $to, $root = true){
         $form = str_replace('\\', '/', $form);
         substr($form, -1) == '/' || $form .= '/';
@@ -279,17 +283,3 @@ Class Txt{
         return true;
     }
 }
-
-header("Content-type:text/html;charset=utf-8;");
-
-$base = 'f:/data';
-$parser = new Txt(array(
-    'txt_file' => $base.'/txt/justatest.txt',
-    'pattern'  => '/\n第[^\x{3000}\n]+\n/uis',
-    'tpl_path' => $base.'/tpl/007/',
-    'htm_path' => $base.'/htm/justatest/',
-    'chm_title'=> 'just a test'
-));
-
-
-$parser->create_chm();
