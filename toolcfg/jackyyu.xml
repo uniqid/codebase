@@ -624,9 +624,9 @@
         <LexerType name="php" desc="php" ext="">
             <WordsStyle name="QUESTION MARK" styleID="18" fgColor="FF0000" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="DEFAULT" styleID="118" fgColor="800000" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING" styleID="119" fgColor="FF0080" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
-            <WordsStyle name="STRING VARIABLE" styleID="126" fgColor="FF0000" bgColor="CCE8CF" fontName="" fontStyle="1" fontSize="" />
-            <WordsStyle name="SIMPLESTRING" styleID="120" fgColor="FF0000" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING" styleID="119" fgColor="FF00FF" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
+            <WordsStyle name="STRING VARIABLE" styleID="126" fgColor="00FF00" bgColor="CCE8CF" fontName="" fontStyle="1" fontSize="" />
+            <WordsStyle name="SIMPLESTRING" styleID="120" fgColor="FF00FF" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="WORD" styleID="121" fgColor="0000FF" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" keywordClass="instre1" />
             <WordsStyle name="NUMBER" styleID="122" fgColor="FF8000" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
             <WordsStyle name="VARIABLE" styleID="123" fgColor="008080" bgColor="CCE8CF" fontName="" fontStyle="0" fontSize="" />
