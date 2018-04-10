@@ -67,34 +67,34 @@ Class WordHTMLParser{
     */
     public function replace_link(){
         $dfile = $this->_get_sort_files($this->_dhtml, true); //print_r($dfile);exit;
-		$links = array();
-		foreach($dfile as $key => $file){
-			if(isset($file['name'])){
+        $links = array();
+        foreach($dfile as $key => $file){
+            if(isset($file['name'])){
                 $links[] = $file['name'];
             } else {
                 foreach($file['children'] as $child){
-					$links[] = $child;
+                    $links[] = $child;
                 }
             }
-		}
+        }
 
-		foreach($links as $key => $link){
-			$prev = isset($links[$key - 1])? $links[$key - 1]: '';
-			$next = isset($links[$key + 1])? $links[$key + 1]: '';
-			$content = file_get_contents($this->_dhtml.$link);
-			if($prev == ''){
-				$content = preg_replace("/<a[^>]*href='[^']*prev[^']*'>[^<]*<\/a>/is", '', $content);
-			} else {
-				$content = str_replace('{__prev__}', $prev, $content);
-			}
+        foreach($links as $key => $link){
+            $prev = isset($links[$key - 1])? $links[$key - 1]: '';
+            $next = isset($links[$key + 1])? $links[$key + 1]: '';
+            $content = file_get_contents($this->_dhtml.$link);
+            if($prev == ''){
+                $content = preg_replace("/<a[^>]*href='[^']*prev[^']*'>[^<]*<\/a>/is", '', $content);
+            } else {
+                $content = str_replace('{__prev__}', $prev, $content);
+            }
 
-			if($next == ''){
-				$content = preg_replace("/<a[^>]*href='[^']*next[^']*'>[^<]*<\/a>/is", '', $content);
-			} else {
-				$content = str_replace('{__next__}', $next, $content);
-			}
-			file_put_contents($this->_dhtml.$link, $content);
-		}
+            if($next == ''){
+                $content = preg_replace("/<a[^>]*href='[^']*next[^']*'>[^<]*<\/a>/is", '', $content);
+            } else {
+                $content = str_replace('{__next__}', $next, $content);
+            }
+            file_put_contents($this->_dhtml.$link, $content);
+        }
     }
 
     /**
@@ -102,11 +102,11 @@ Class WordHTMLParser{
     */
     public function create_hhc(){
         $hhc_cell = <<<EOT
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="{__title__}">
-			<param name="Local" value="./{__file__}">
-			<param name="ImageNumber" value="{__number__}">
-			</OBJECT>
+        <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="{__title__}">
+            <param name="Local" value="./{__file__}">
+            <param name="ImageNumber" value="{__number__}">
+            </OBJECT>
 
 EOT;
         $sfile = $this->_get_sort_files($this->_shtml);       //print_r($sfile);exit;
@@ -118,7 +118,7 @@ EOT;
                 $_file = $file['name'];
             } else {
                 $title = substr($sfile[$key]['name'], 0, -5);
-                $_file = $file['children'][1];
+                $_file = $file['children'][0];
             }
             $hhc .= str_replace(array('{__title__}','{__file__}','{__number__}'), array($title, $_file, 1), $hhc_cell);
 
@@ -140,10 +140,10 @@ EOT;
     */
     public function create_hhk(){
         $hhk_tpl = <<<EOT
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="{__title__}">
-			<param name="Local" value="{__file__}">
-			</OBJECT>
+        <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="{__title__}">
+            <param name="Local" value="{__file__}">
+            </OBJECT>
 
 EOT;
         $sfile = $this->_get_sort_files($this->_shtml);       //print_r($sfile);exit;
@@ -155,7 +155,7 @@ EOT;
                 $_file = $file['name'];
             } else {
                 $title = substr($sfile[$key]['name'], 0, -5);
-                $_file = $file['children'][1];
+                $_file = $file['children'][0];
             }
             $hhk .= str_replace(array('{__title__}','{__file__}'), array($title, $_file), $hhk_tpl);
 
@@ -179,8 +179,8 @@ EOT;
             preg_match('/^([\d\.\s]+).*?/is', $file, $matched);
             $keystr = str_replace(' ', '', $matched[1]);
             $keys = explode('.', $keystr);
-            if(!empty($keys[1])){
-                $include_child && $kfile[$keys[0]]['children'][$keys[1]] = $file;
+            if(isset($keys[1]) && $keys[1] !== ''){
+                $include_child && $kfile[$keys[0]]['children'][str_replace($keys[0].'.', '', $keystr)] = $file;
             } else {
                 $kfile[$keys[0]]['name'] = $file;
             }
@@ -188,9 +188,40 @@ EOT;
 
         foreach($kfile as &$files){
             isset($files['children']) && 
-            uksort($files['children'], function($i, $j){return $i > $j;});
+            uksort($files['children'], function($i, $j){
+                $i_arr = explode('.', $i);
+                $j_arr = explode('.', $j);
+                $count = max(count($i_arr), count($j_arr));
+                for($n = 0; $n < $count; $n++){
+                    if(isset($i_arr[$n]) && !isset($j_arr[$n])){
+                        return true;
+                    } elseif (!isset($i_arr[$n]) && isset($j_arr[$n])){
+                        return false;
+                    } else if($i_arr[$n] != $j_arr[$n]) {
+                        return $i_arr[$n] > $j_arr[$n];
+                    }
+                }
+                return $i > $j;
+            });
+            isset($files['children']) && $files['children'] = array_values($files['children']);
         }
-        uksort($kfile, function($i, $j){return $i > $j;});
+        uksort($kfile, function($i, $j){
+            $i_arr = explode('.', $i);
+            $j_arr = explode('.', $j);
+            $count = max(count($i_arr), count($j_arr));
+            for($n = 0; $n < $count; $n++){
+                if(isset($i_arr[$n]) && !isset($j_arr[$n])){
+                    return true;
+                } elseif (!isset($i_arr[$n]) && isset($j_arr[$n])){
+                    return false;
+                } else if($i_arr[$n] != $j_arr[$n]) {
+                    return $i_arr[$n] > $j_arr[$n];
+                }
+            }
+            return $i > $j;
+        });
+        //print_r($kfile);exit;
+        
         return $kfile;
     }
 
@@ -202,8 +233,11 @@ EOT;
         list($list_pres, $lists) = $this->_get_content_list();
         $titles = $this->get_menu_titles(true);
         $this->_clean_data();
+        
+        //echo count($titles);exit;
 
-        //echo "<pre>"; print_r($list_pres); print_r($lists); echo "</pre>";
+        //echo "<pre>"; print_r(array_values($list_pres));echo "</pre>";exit;
+        //print_r($lists); echo "</pre>";
         //echo "<pre>"; print_r($titles); echo "</pre>"; return ;exit;
 
         $filenames = array_values($titles);
@@ -218,6 +252,11 @@ EOT;
         $files  = array();
         $tpl    = file_get_contents($this->_tpl);
         foreach($htmls as $_title => $_content){
+            if(strlen(preg_replace('/<[^>]*>|\r|\n|\s/is', '', $_content)) <= strlen($_title)){
+                continue;
+            }
+
+            $_content = preg_replace('/(.*)<(?:p|h\d+)[^\\>]*>[\s\r\n]*$/', '$1', $_content);
             $_title   = str_replace('?', '？', $_title);
             $_content = str_replace(array('{__title__}', '{__content__}'), array($_title, $_content), $tpl);
             if($this->_charset != 'utf-8'){
@@ -227,7 +266,11 @@ EOT;
 
             //echo $this->_html, '<br/>'; continue; //$this->clean_html($_content);exit;
             $_content = $this->clean_html($_content);
-            $_title   = str_replace(array('&#8212;', '&#8212;'), array('',''), $_title);
+            
+            
+            
+            $_title   = preg_replace('/\&\#\d+\;/is', '', $_title);
+            
             if(!file_put_contents($this->_dhtml.$prekey.$_title.'.html', $_content)){
                 echo $this->_dhtml.$prekey.$_title.'.html<br/>';
             }
@@ -270,12 +313,17 @@ EOT;
       *get the parsed content list
     */
     private function _get_content_list(){
-        preg_match('/<\/style><\/head><body style[^>]*>(.*<\/span><\/p><\/div>)/is', $this->_get_data(), $matched);
-        $content = isset($matched[1])?$matched[1]: $this->_get_data();  //echo $content;exit;
+        preg_match('/<\/style>\s*<\/head>\s*<body [^>]*>(.*<\/span><\/p>\s*<\/div>)/is', $this->_get_data(), $matched);
+        $content = isset($matched[1])?$matched[1]: $this->_get_data();
+        //echo $content;exit;
+        //echo substr($content, 0, 1000).substr($content, -1000);exit;
 
-        preg_match_all('/<(?:p class=(?:MsoTitle|MsoNormal)|h1)[^>]*>[<\/span>]?<a\s+name="_Toc\d+"\s*>|<a\s+name="_Toc\d+"\s*><\/a>(<span style=[^>]*>\d+\.)/is', $content, $preArr); //print_r($preArr);exit;
+        //$pattern = '/<(?:p class=(?:MsoTitle|MsoNormal)|h1)[^>]*>[<\/span>]?<a\s+name="_Toc\d+"\s*>|<a\s+name="_Toc\d+"\s*><\/a>(<span style=[^>]*>\d+\.)/is';
 
-        $datas = preg_split('/<(?:p class=(?:MsoTitle|MsoNormal)|h1)[^>]*>[<\/span>]?<a\s+name="_Toc\d+"\s*>|<a\s+name="_Toc\d+"\s*><\/a><span style=[^>]*>\d+\./is', $content); //print_r($datas);exit;
+        $pattern = '/(<a[\s\r\n]*name="_Toc\d+">.*?)<\/(?:p|h\d+)>/is';
+        preg_match_all($pattern, $content, $preArr);
+        $datas = preg_split($pattern, $content, -1);
+        //print_r($datas);exit;
 
         $lists = $datas;
         foreach($datas as $key => &$data){
@@ -286,7 +334,7 @@ EOT;
                 unset($datas[$key], $lists[$key]);
                 continue;
             }
-            $data = mb_substr($data, 0, 5, 'UTF-8');
+            $data = mb_substr($data, 0, 10, 'UTF-8');
         }
         if(empty($datas)){
             $lists = array($content);
@@ -303,11 +351,13 @@ EOT;
         $menus = array_filter($matched[1]);
         foreach($menus as $key => &$menu){
             $menu = preg_replace('/<[^>]*>/is', '', $menu);
-            $menu = trim(str_replace(array('&#9;', '&nbsp;'), array('', ' '), $menu));
+            $menu = trim(str_replace(array('&#9;', '&nbsp;', "\r\n"), array('', ' ', ''), $menu));
+            $menu = preg_replace('/\.{3,}/is', '', $menu);
             $menu = preg_replace('/^(.*)[\d+]$/is', '$1', $menu);
             $menu = preg_replace('/^(.*)[\d+]$/is', '$1', $menu);
             $menu = preg_replace('/^(.*)[\d+]$/is', '$1', $menu);
             $menu = str_replace(array('&#8220;', '&#8221;'), array('', ''), $menu);
+            $menu = preg_replace('/\&\#\d+\;/is', '', $menu);
             if(!preg_match('/^\d+.*?/is', $menu)){
                 unset($menus[$key]);
             }
