@@ -1,20 +1,46 @@
-CREATE TABLE `codebase_dbgen_tabs`                               -- tables
-( 
-  `id` int(10) NOT NULL AUTO_INCREMENT,                          -- id
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,      -- table name
-  `comment` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,  -- comment
-  `extra` varchar(500) COLLATE utf8_unicode_ci NOT NULL,         -- extra information
-  `orderid` int(10) NOT NULL DEFAULT '0',                        -- order number
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `codebase_dbgen_cols`                               -- fields
-( 
-  `id` int(10) NOT NULL AUTO_INCREMENT,                          -- id
-  `tab` varchar(100) COLLATE utf8_unicode_ci NOT NULL,           -- table name
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,      -- field name
-  `type` varchar(400) COLLATE utf8_unicode_ci NOT NULL,          -- field type
-  `comment` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,  -- comment
-  `orderid` int(10) NOT NULL DEFAULT '0',                        -- order number
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE `codebase_dbgen_cols`     -- codebase_dbgen_cols
+(
+  `id` int(10) NOT NULL AUTO_INCREMENT,    -- id
+  `tab` varchar(100) COLLATE utf8_unicode_ci NOT NULL,    -- tab
+  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,    -- name
+  `type` varchar(400) COLLATE utf8_unicode_ci NOT NULL,    -- type
+  `comment` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,    -- comment
+  `orderid` int(10) NOT NULL DEFAULT '0',    -- orderid
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+CREATE TABLE `codebase_dbgen_tabs`     -- codebase_dbgen_tabs
+(
+  `id` int(10) NOT NULL AUTO_INCREMENT,    -- id
+  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,    -- name
+  `comment` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,    -- comment
+  `extra` varchar(500) COLLATE utf8_unicode_ci NOT NULL,    -- extra
+  `orderid` int(10) NOT NULL DEFAULT '0',    -- orderid
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+
+
+
+
+
+

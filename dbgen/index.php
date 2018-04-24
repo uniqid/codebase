@@ -14,7 +14,7 @@ https://github.com/uniqid/codebase
 
 *************************************************/
 require_once '../common/cfg/bootstrap.php';
-$sql_file_path  = APP . '/dbgen/sql/';
+$sql_file_path  = APP . '/dbgen/sql/src/';
 $html_file_path = APP . '/dbgen/html/';
 $req_uri  = get_req_uri();
 $base_url = BASE_URL . $req_uri;

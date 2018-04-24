@@ -75,6 +75,7 @@ function getFiles($path, $filter = array()) {
 }
 
 function getMatchedTables($filepath){
+    $filepath = getSqlMatchedTxt($filepath);
     $content = str_replace("<", "&lt;", file_get_contents($filepath));
     $content = trim(preg_replace("/CREATE UNIQUE INDE.*?btree\(cid\);/is", "", $content));
     if(preg_match('/WITH\s+\(OIDS=FALSE\);/is', $content)){
@@ -87,6 +88,30 @@ function getMatchedTables($filepath){
     }
     $arr = array_map("trim", $arr);
     return $arr;
+}
+
+function getSqlMatchedTxt($filepath){
+    $dirname  = dirname(dirname($filepath));
+    $basename = pathinfo(basename($filepath));
+    if(strtolower($basename['extension']) == 'sql'){
+        $txtFile = $dirname .'/'. $basename['filename'].'.txt';
+        if(!is_file($txtFile)){
+            createSqlMatchedTxt($txtFile, $filepath);
+        }
+        return $txtFile;
+    } else {
+        return $filepath;
+    }
+}
+
+function createSqlMatchedTxt($txtFile, $filepath){
+    $content = file_get_contents($filepath);
+    $content = preg_replace('|/\*\!.*?\ */;|is', '', $content);
+    $content = preg_replace('|AUTO_INCREMENT=\d+ |is', '', $content);
+    $content = preg_replace('|(CREATE TABLE `([^`]+)` )\(|is', '$1    -- $2'."\n(", $content);
+    $content = preg_replace('|(  `([^`]+)`.*?,)[\r\n]+|', '$1    -- $2'."\n", $content);
+    $content = preg_replace('|(  `[^`]+`.*?\s+COMMENT\s+\'(.*?)\',\s+--\s+).*?[\r\n]+|is', '$1$2'."\n", $content);
+    file_put_contents($txtFile, $content);
 }
 
 function parseCsvToArray($file, $encoding = 'utf-8', $delimiter = ',', $enclosure = '"'){

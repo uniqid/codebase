@@ -24,35 +24,21 @@
 <div id="content">
     <div id="leftPart">
         <ul>
-        <li>1. <a onclick="show('div_codebase_dbgen_tabs');" href="javascript:void(0);" title="tables">codebase_dbgen_tabs</a></li>
-<li>2. <a onclick="show('div_codebase_dbgen_cols');" href="javascript:void(0);" title="fields">codebase_dbgen_cols</a></li>
-			<li><b>Updated</b>: <font color='red'>2015-05-22 15:31</font></li>
+        <li>1. <a onclick="show('div_codebase_dbgen_cols');" href="javascript:void(0);" title="codebase_dbgen_cols">codebase_dbgen_cols</a></li>
+<li>2. <a onclick="show('div_codebase_dbgen_tabs');" href="javascript:void(0);" title="codebase_dbgen_tabs">codebase_dbgen_tabs</a></li>
+			<li><b>Updated</b>: <font color='red'>2018-04-24 14:24</font></li>
 			<li><b>Support</b>: <a href="mailto:jacky325@qq.com">Jacky Yu</a></li>
         </ul>
     </div>
     <div id="rightPart">
-            <table width="100%" class="info" id="div_codebase_dbgen_tabs">
+            <table width="100%" class="info" id="div_codebase_dbgen_cols">
           <tr><th class="item">ID</th><th width="150">列名</th><th width="320">类型</th><th>备注</th> </tr><tr><td class="item">1</td><td><a href="#">`id`</a></td><td><a href="#">int(10) NOT NULL AUTO_INCREMENT</a></td><td>id</td></tr>
-<tr><td class="item">2</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>table name</td></tr>
-<tr><td class="item">3</td><td><a href="#">`comment`</a></td><td><a href="#">varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>comment</td></tr>
-<tr><td class="item">4</td><td><a href="#">`extra`</a></td><td><a href="#">varchar(500) COLLATE utf8_unicode_ci NOT NULL</a></td><td>extra information</td></tr>
-<tr><td class="item">5</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>order number</td></tr>
-<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">( 
-
-
-
-
-
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_tabs (5)</b> [ <span style="color:#ff0000;">tables</span> ]</td></tr>        </table>
-                <table width="100%" class="info" id="div_codebase_dbgen_cols">
-          <tr><th class="item">ID</th><th width="150">列名</th><th width="320">类型</th><th>备注</th> </tr><tr><td class="item">1</td><td><a href="#">`id`</a></td><td><a href="#">int(10) NOT NULL AUTO_INCREMENT</a></td><td>id</td></tr>
-<tr><td class="item">2</td><td><a href="#">`tab`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci NOT NULL</a></td><td>table name</td></tr>
-<tr><td class="item">3</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>field name</td></tr>
-<tr><td class="item">4</td><td><a href="#">`type`</a></td><td><a href="#">varchar(400) COLLATE utf8_unicode_ci NOT NULL</a></td><td>field type</td></tr>
+<tr><td class="item">2</td><td><a href="#">`tab`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci NOT NULL</a></td><td>tab</td></tr>
+<tr><td class="item">3</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>name</td></tr>
+<tr><td class="item">4</td><td><a href="#">`type`</a></td><td><a href="#">varchar(400) COLLATE utf8_unicode_ci NOT NULL</a></td><td>type</td></tr>
 <tr><td class="item">5</td><td><a href="#">`comment`</a></td><td><a href="#">varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>comment</td></tr>
-<tr><td class="item">6</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>order number</td></tr>
-<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">( 
+<tr><td class="item">6</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>orderid</td></tr>
+<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">(
 
 
 
@@ -60,7 +46,21 @@
 
 
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_cols (6)</b> [ <span style="color:#ff0000;">fields</span> ]</td></tr>        </table>
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_cols (6)</b> [ <span style="color:#ff0000;">codebase_dbgen_cols</span> ]</td></tr>        </table>
+                <table width="100%" class="info" id="div_codebase_dbgen_tabs">
+          <tr><th class="item">ID</th><th width="150">列名</th><th width="320">类型</th><th>备注</th> </tr><tr><td class="item">1</td><td><a href="#">`id`</a></td><td><a href="#">int(10) NOT NULL AUTO_INCREMENT</a></td><td>id</td></tr>
+<tr><td class="item">2</td><td><a href="#">`name`</a></td><td><a href="#">varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>name</td></tr>
+<tr><td class="item">3</td><td><a href="#">`comment`</a></td><td><a href="#">varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL</a></td><td>comment</td></tr>
+<tr><td class="item">4</td><td><a href="#">`extra`</a></td><td><a href="#">varchar(500) COLLATE utf8_unicode_ci NOT NULL</a></td><td>extra</td></tr>
+<tr><td class="item">5</td><td><a href="#">`orderid`</a></td><td><a href="#">int(10) NOT NULL DEFAULT '0'</a></td><td>orderid</td></tr>
+<tr height="24"><td colspan="4"><span style="color:#ff0000;line-height:20px;">(
+
+
+
+
+
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;</span></td></tr><tr height="24"><td colspan="4"><b>codebase_dbgen_tabs (5)</b> [ <span style="color:#ff0000;">codebase_dbgen_tabs</span> ]</td></tr>        </table>
             </div>
 </div>
 <div style="clear:both;"></div>
@@ -83,7 +83,7 @@ function resize(){
 }
 window.onresize = resize;
 (function(){
-    show("div_codebase_dbgen_tabs");
+    show("div_codebase_dbgen_cols");
     resize();
 })();
 </script>
