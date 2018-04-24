@@ -8,7 +8,13 @@ define('BASE_URL', $_SERVER['REQUEST_SCHEME'] ."://". $_SERVER['HTTP_HOST']);
 
 //Initialize database Settings 
 require_once(COMMON . '/cfg/database.php');
-require_once(COMMON . '/lib/mysql.php');
+
+if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+    require_once(COMMON . '/lib/mysql_php7.php');
+} else {
+    require_once(COMMON . '/lib/mysql.php');
+}
+
 extract($dbConfig);
 $db = Mysql::getInstance($username, $password, $database, $host, $port, $encoding);
 

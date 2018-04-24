@@ -142,7 +142,7 @@ if(empty($_REQUEST["file"]) || !is_file($sql_file_path . trim($_REQUEST["file"])
                         $tmpCol[2] = str_replace("'", "''", $tmpCol[2]);
                         $tmpCol[3] = str_replace("'", "''", $tmpCol[3]);
                         $sql = "insert into auto_{$database}_cols (tab, name, type, comment) values('{$tmp[1]}', '{$tmpCol[1]}', '{$tmpCol[2]}', '{$tmpCol[3]}');";
-                        echo (mysql_query($sql)? $sql: mysql_error()) . "<br/>";
+                        echo ($db->query($sql)? $sql: $db->message) . "<br/>";
                     }
                 }
                 $table  = trim(preg_replace("/\([\s\n]+(\s+.*?)\)$/is", "$1", $table));
