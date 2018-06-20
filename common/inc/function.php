@@ -106,6 +106,7 @@ function getSqlMatchedTxt($filepath){
 
 function createSqlMatchedTxt($txtFile, $filepath){
     $content = file_get_contents($filepath);
+    $content = preg_replace('|\-\-.*?[\r\n]+|is', '', $content);
     $content = preg_replace('|/\*\!.*?\ */;|is', '', $content);
     $content = preg_replace('|AUTO_INCREMENT=\d+ |is', '', $content);
     $content = preg_replace('|(CREATE TABLE `([^`]+)` )\(|is', '$1    -- $2'."\n(", $content);
