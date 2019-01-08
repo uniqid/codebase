@@ -33,10 +33,10 @@ class Rsa {
      * generate pb.key
      * openssl rsa -in pk.pem -pubout -out pb.key
      */
-    public function encode($str) {
-        $publicstr = file_get_contents($this->_rsa_path . 'pb.key');
-        $publickey = openssl_pkey_get_public($publicstr);
-        $r = openssl_public_encrypt($str, $encrypted, $publickey);
+    public function encode($data) {
+        $public_key = file_get_contents($this->_rsa_path . 'pb.key');
+        $public_key = openssl_pkey_get_public($public_key);
+        $r = openssl_public_encrypt($data, $encrypted, $public_key);
         if ($r) {
             return base64_encode($encrypted);
         }
@@ -48,13 +48,35 @@ class Rsa {
      * 1. openssl genrsa -des3 -out pk.pem 2048
      * 2. openssl rsa -in pk.pem -out pk.pem
      */
-    public function decode($str) {
-        $str = base64_decode($str);
-        $privstr = file_get_contents($this->_rsa_path . 'pk.pem');
-        $privkey = openssl_pkey_get_private($privstr);
-        $r = openssl_private_decrypt($str, $decrypted, $privkey, OPENSSL_PKCS1_PADDING);
+    public function decode($data) {
+        $data = base64_decode($data);
+        $private_key = file_get_contents($this->_rsa_path . 'pk.pem');
+        $private_key = openssl_pkey_get_private($private_key);
+        $r = openssl_private_decrypt($data, $decrypted, $private_key, OPENSSL_PKCS1_PADDING);
         if ($r) {
             return $decrypted;
+        }
+        return false;
+    }
+
+    /**
+     * 签名
+     */
+    public function sign($data){
+        $private_key = file_get_contents($this->_rsa_path . 'pk.pem');
+        $signature   = '';
+        openssl_sign($data, $signature, $private_key);
+        return base64_encode($signature);
+    }
+
+    /**
+     * 验证签名
+     */
+    public function verify($data, $signature){
+        $public_key = file_get_contents($this->_rsa_path . 'pb.key');
+        $r = openssl_verify($data, base64_decode($signature), $public_key);
+        if ($r == 1) {
+            return true;
         }
         return false;
     }
